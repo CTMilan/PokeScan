@@ -1,20 +1,26 @@
 import PreProcessing
 import Processing
 
-def add_codes(newcodes:list[str]):
-    records = open("records.txt","a")
-    for codes in newcodes:
-        records.write("\t"+codes+"\n")
+
+def main():
+    ## Pre-Process Images to make OCR more accurate
+    PreProcessing.prepare_images()
+
+    ## Process the images, search them for the desired code pattern and return the codes in a string list
+    newcodes=Processing.process_images()
+
+    ## Add the new codes to the records.txt file
+    add_codes(newcodes)
+
+    ## The codes can be accessed and copied from the records.txt file and pasted on Pokemon.com/Redeem to be redeemed
 
 
-#print("Preparing images")
-PreProcessing.prepare_images()
-#print("Done preparing images")
-#print("Processing images")
-newcodes=Processing.process_images()
-#print("Done processing images")
-#print("Add new codes to Records.txt")
-add_codes(newcodes)
-#print("New codes have been added")
+# This function takes a string list of new codes and appends the records.txt file
+    def add_codes(newcodes:list[str]):
+        records = open("records.txt","a")
+        for codes in newcodes:
+            records.write("\t"+codes+"\n")
 
 
+if __name__=="__Main__":
+    main()
